@@ -1,0 +1,1186 @@
+package Practice;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+public class ShuffleArray {
+
+	public static void main(String[] args) {
+		
+		 Scanner scanner = new Scanner(System.in);
+	        System.out.print("Enter the number of elements: ");
+	        int n = scanner.nextInt();
+	        Integer[] array = new Integer[n];
+	        System.out.println("Enter the elements:");
+	        for (int i = 0; i < n; i++) {
+	            array[i] = scanner.nextInt();
+	        }
+		
+		Random rand = new Random();
+		
+		for (int i = 0; i < array.length; i++) {
+			int randomIndexToSwap = rand.nextInt(array.length);
+			int temp = array[randomIndexToSwap];
+			array[randomIndexToSwap] = array[i];
+			array[i] = temp;
+		}
+		System.out.println(Arrays.toString(array));
+	}
+}
+
+************
+
+
+package Practice;
+import java.io.*;
+import java.util.*;
+
+class Solution {
+	 public static void main(String args[]) {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Enter a string: ");
+	        String str = scanner.nextLine();
+	        HashMap<Character, Integer> count = new HashMap<Character, Integer>();
+	        char[] arr = str.toCharArray();
+	        for (char c : arr) {
+	        	 if (count.containsKey(c)) {
+	                    count.put(c, count.get(c) + 1);
+	                } else {
+	                    count.put(c, 1);
+	                }
+	        }
+	        for (char c : count.keySet()) {
+	            System.out.println("Occurrences of " + c + " = " + count.get(c));
+	        }
+	    }
+}
+
+
+**********
+package Practice;
+import java.util.*;
+
+public class StudentScores {
+    public static void main(String[] args) {
+    	
+    		Scanner input = new Scanner(System.in);
+
+    		System.out.print("Enter the number of students: ");
+    		String[] students = new String[input.nextInt()];
+    		int[] scores = new int[students.length];
+
+    		System.out.println("Enter the name a score for each student:");
+    		for (int i = 0; i < students.length; i++) {
+    			System.out.print("Student " + (i + 1) + ": ");
+    			students[i] = input.next();
+    			System.out.print("Score: ");
+    			scores[i] = input.nextInt();
+    		}
+
+    		sortDecreasing(students, scores);
+
+    		for (String e: students) {
+    			System.out.println(e);
+    		}
+    	}
+
+    	public static void sortDecreasing(String[] strs, int[] nums) {
+    		for (int i = 0; i < nums.length; i++) {
+    			int max = nums[i];
+    			int maxIndex = i;
+    			String temp;
+
+    			for (int j = i + 1; j < nums.length; j++) {
+    				if (nums[j] > max) {
+    					max = nums[j];
+    					maxIndex = j;
+    				}
+    			}
+    			
+    			if (maxIndex != i) {
+    				temp = strs[i];
+    				strs[i] = strs[maxIndex];
+    				strs[maxIndex] = temp;
+
+    				nums[maxIndex] = nums[i];
+    				nums[i] = max;
+    			}
+    		}
+    	}
+}
+*************
+
+package Practice;
+import java.util.Scanner;
+
+public class AverageCalculator {
+    public static int average(int[] array) {
+        int sum = 0;
+        for (int num : array) {
+            sum += num;
+        }
+        return sum / array.length;
+    }
+
+    public static double average(double[] array) {
+        double sum = 0;
+        for (double num : array) {
+            sum += num;
+        }
+        return sum / array.length;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        double[] values = new double[10];
+
+        System.out.println("Enter ten double values:");
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Value " + (i + 1) + ": ");
+            values[i] = scanner.nextDouble();
+        }
+
+        double averageValue = average(values);
+        System.out.println("Average value: " + averageValue);
+    }
+}
+
+
+**********
+
+package Practice;
+import java.util.*;
+
+public class DuplicateEliminator {
+    public static int[] eliminateDuplicates(int[] list) {
+        Set<Integer> set = new HashSet<>();
+        for (int num : list) {
+            set.add(num);
+        }
+        int[] result = new int[set.size()];
+        int index = 0;
+        for (int num : set) {
+            result[index++] = num;
+        }
+        return result;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int[] numbers = new int[10];
+
+        System.out.println("Enter ten integers:");
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Number " + (i + 1) + ": ");
+            numbers[i] = scanner.nextInt();
+        }
+
+        int[] result = eliminateDuplicates(numbers);
+
+        System.out.println("Array after eliminating duplicates:");
+        for (int num : result) {
+            System.out.print(num + " ");
+        }
+    }
+}
+
+
+**********
+
+package Practice;
+
+public class Binarysearchtime {
+
+	public static void main(String[] args) {
+		int num;
+		int[] numbers = new int[10000];
+		for (int i = 0; i < numbers.length; i++) {
+			numbers[i] = getRandomInt();
+		}
+		int key = getRandomInt();
+		int searchResult;
+		long startTime = System.currentTimeMillis();
+		searchResult = linearSearch(numbers, key);
+		long endTime = System.currentTimeMillis();
+		long executionTime = endTime - startTime;
+		System.out.println(
+			"Execution time of invoking the linearSearch in milliseconds: " 
+			+ executionTime);
+		selectionSort(numbers);
+		startTime = System.currentTimeMillis();
+		searchResult = binarySearch(numbers, key);
+		endTime = System.currentTimeMillis();
+		executionTime = endTime - startTime;
+		System.out.println(
+			"Execution time of invoking the binarySearch in milliseconds: " 
+			+ executionTime + " ");
+	}
+	public static int getRandomInt() {
+		return 1 + (int)(Math.random() * 100000);
+	}
+	public static int linearSearch(int[] array, int key) {
+		for (int i = 0; i < array.length; i++) {
+			if (key == array[i])
+				return i;
+		}
+		return -1;
+	}
+	public static int binarySearch(int[] array, int key) {
+		int low = 0;
+		int high = array.length - 1;
+		
+		while (high >= low) {
+			int mid = (low + high) / 2;
+			if (key < mid)
+				high = mid - 1;
+			else if (key == mid)
+				return mid;
+			else
+				low = mid + 1;
+		}
+		return -low -1;
+	}
+	public static void selectionSort(int[] array) {
+		for (int i = 0; i < array.length; i++) {
+			int min = array[i];
+			int minIndex = i;
+
+			for (int j = i + 1; j < array.length; j++) {
+				if (min > array[j]) {
+					min = array[j];
+					minIndex = j;
+				}
+			}
+			if (minIndex != i) {
+				array[minIndex] = array[i];
+				array[i] = min; 
+			}
+		}
+	}
+}
+
+******
+
+package Practice;
+import java.util.*;
+
+public class EmployeeHours {
+	 public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Enter the number of employees: ");
+	        int numEmployees = scanner.nextInt();
+	        System.out.print("Enter the number of days: ");
+	        int numDays = scanner.nextInt();
+	        int[][] weeklyHours = new int[numEmployees][numDays];
+	        for (int i = 0; i < numEmployees; i++) {
+	            System.out.println("Enter work hours for employee " + (i + 1) + ":");
+	            for (int j = 0; j < numDays; j++) {
+	                System.out.print("Day " + (j + 1) + ": ");
+	                weeklyHours[i][j] = scanner.nextInt();
+	            }
+	        }
+
+	        int[] totalHours = new int[numEmployees];
+	        for (int i = 0; i < numEmployees; i++) {
+	            totalHours[i] = calculateTotalHours(weeklyHours[i]);
+	        }
+
+	        sortEmployees(numEmployees, totalHours, weeklyHours);
+
+	        System.out.println("Employees and their total hours in decreasing order:");
+	        for (int i = 0; i < numEmployees; i++) {
+	            int employeeNumber = i + 1;
+	            int employeeTotalHours = totalHours[i];
+	            System.out.println("Employee " + employeeNumber + ": " + employeeTotalHours + " hours");
+	        }
+	    }
+
+	    public static int calculateTotalHours(int[] hours) {
+	        int total = 0;
+	        for (int hour : hours) {
+	            total += hour;
+	        }
+	        return total;
+	    }
+
+	    public static void sortEmployees(int numEmployees, int[] totalHours, int[][] weeklyHours) {
+	        for (int i = 0; i < numEmployees - 1; i++) {
+	            for (int j = i + 1; j < numEmployees; j++) {
+	                if (totalHours[j] > totalHours[i]) {
+	                  
+	                    int tempHours = totalHours[i];
+	                    totalHours[i] = totalHours[j];
+	                    totalHours[j] = tempHours;
+	                 
+	                    int[] tempWeeklyHours = weeklyHours[i];
+	                    weeklyHours[i] = weeklyHours[j];
+	                    weeklyHours[j] = tempWeeklyHours;
+	                }
+	            }
+	        }
+	    }
+	}
+
+*********
+
+package Practice;
+import java.util.Scanner;
+
+public class Allzero {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        System.out.print("Enter the size of the matrix: ");
+        int size = input.nextInt();
+        int[][] m = new int[size][size];
+
+        generateMatrix(m);
+        displayMatrix(m);
+
+        int column = 0;
+        int row = 0;
+        for (int k = 0; k < 2; k++) {
+            for (int i = 0; i < m.length; i++) {
+                if (rowSequence(m,k,i)) {
+                    System.out.println("All " + k + "s on row " + i);
+                    row++;
+                }
+            }
+        }
+        for (int k = 0; k < 2; k++) {
+            for (int i = 0; i < m.length; i++) {
+                if (columnSequence(m,k,i)) {
+                    System.out.println("All " + k + "s on column " + i);
+                    column++;
+                }
+            }
+        }
+        if (column == 0) {
+            System.out.println("No same numbers on a column");
+        }
+        if (row == 0) {
+            System.out.println("No same numbers on a row");
+        }
+
+        System.out.println("major diagonal 1's: " + majorDiagonal(m, 1));
+        System.out.println("major diagonal 0's: " + majorDiagonal(m, 0));
+        System.out.println("subDiagonal 0's: " + subDiagonal(m, 0));
+        System.out.println("subDiagonal 1's: " + subDiagonal(m, 1));
+        System.out.println("superDiagonal 0's: " + superDiagonal(m, 0));
+        System.out.println("superDiagonal 1's: " + superDiagonal(m, 1));
+
+    }
+
+    public static boolean rowSequence(int[][] m, int n, int row) {
+
+        for (int k = 0; k < m[row].length; k++) {
+            if (m[row][k] != n) return false;
+        }
+        return true;
+    }
+
+    public static boolean columnSequence(int[][] m, int n, int column) {
+
+        for (int i = 0; i < m.length; i++) {
+            if (m[i][column] != n) return false;
+        }
+        return true;
+    }
+
+    public static void displayMatrix(int[][] m) {
+
+        System.out.println("");
+        for (int i = 0; i < m.length; i++) {
+            for (int k = 0; k < m[i].length; k++) {
+                System.out.print(m[i][k]);
+            }
+            System.out.println("");
+        }
+    }
+
+    public static void generateMatrix(int[][] m) {
+        for (int i = 0; i < m.length; i++) {
+            for (int k = 0; k < m[i].length; k++) {
+                m[i][k] = (int)(Math.random() * 2);
+            }
+        }
+    }
+
+    public static boolean majorDiagonal(int[][] m, int n) {
+
+        boolean topLeftDown = true;
+
+        for (int i = 0; i < m.length; i++) {
+            if (m[i][i] != n) topLeftDown = false;
+        }
+
+        boolean bottomLeftDown = true;
+
+        int k = 0;
+        for (int i = m.length - 1; i >= 0; i--) {
+                if (m[i][k++] != n) bottomLeftDown = false;
+        }
+
+        return topLeftDown || bottomLeftDown;
+    }
+
+    public static boolean subDiagonal(int[][] m, int n) {
+
+        for (int i = 1; i < m.length; i++) {
+            if (n != m[i][i-1]) return false;
+        }
+
+        return true;
+    }
+
+    public static boolean superDiagonal(int[][] m, int n) {
+
+        for (int i = 0; i < m.length - 1; i++) {
+            if (n != m[i][i+1]) return false;
+        }
+
+        return true;
+    }
+}
+
+
+***********
+
+package Practice;
+public class Fan {
+    public static final int SLOW = 1;
+    public static final int MEDIUM = 2;
+    public static final int FAST = 3;
+
+    private int speed;
+    private boolean on;
+    private double radius;
+    private String color;
+
+    public Fan() {
+        speed = SLOW;
+        on = false;
+        radius = 5.0;
+        color = "blue";
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public boolean isOn() {
+        return on;
+    }
+
+    public void setOn(boolean on) {
+        this.on = on;
+    }
+
+    public double getRadius() {
+        return radius;
+    }
+
+    public void setRadius(double radius) {
+        this.radius = radius;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String toString() {
+        if (on) {
+            return "Speed: " + speed + ", Color: " + color + ", Radius: " + radius;
+        } else {
+            return "Color: " + color + ", Radius: " + radius + ", Fan is off";
+        }
+    }
+
+    public static void main(String[] args) {
+        Fan fan1 = new Fan();
+        fan1.setSpeed(FAST);
+        fan1.setRadius(10.0);
+        fan1.setColor("yellow");
+        fan1.setOn(true);
+
+        Fan fan2 = new Fan();
+        fan2.setSpeed(MEDIUM);
+        fan2.setRadius(5.0);
+        fan2.setColor("blue");
+        fan2.setOn(false);
+
+        System.out.println("Fan 1: " + fan1.toString());
+        System.out.println("Fan 2: " + fan2.toString());
+    }
+}
+
+
+ ******************
+
+package Practice;
+import java.io.*;
+
+public class Filecount{
+    public static void main(String[] args) {
+        String filePath = "input.txt"; // Path to the input text file
+
+        int charCount = 0;
+        int wordCount = 0;
+        int lineCount = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                lineCount++;
+                charCount += line.length(); // Counting characters in the line
+
+                String[] words = line.split("\\s+"); // Split line into words using whitespace characters
+                wordCount += words.length; // Counting words in the line
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return;
+        }
+
+        // Displaying the statistics
+        System.out.println("Number of characters: " + charCount);
+        System.out.println("Number of words: " + wordCount);
+        System.out.println("Number of lines: " + lineCount);
+    }
+}
+
+
+****************
+
+
+package Practice;
+
+import java.util.*;
+import java.io.*;
+
+public class Randomfile {
+	/** Main method */
+	public static void main(String[] args) throws Exception {
+		// Check if file exists
+		File file = new File("Exercise12_15.txt");
+		if (file.exists()) {
+			System.out.println("File already exists");
+			System.exit(0);
+		}
+
+		try (
+			// Create output file
+			PrintWriter output = new PrintWriter(file);
+		) {
+			// Write 100 integers created radomly to file
+			for (int i = 0; i < 100; i++) {
+				output.print(((int)(Math.random() * 500) + 1));
+				output.print(" ");
+			}
+		}
+
+		// Crate and ArrayList
+		ArrayList<Integer> list = new ArrayList<>();
+
+		try(
+			// Create input file
+			Scanner input = new Scanner(file);
+		) {
+			// Read the data back from the file
+			while (input.hasNext()) {
+				list.add(input.nextInt());
+			}
+		}
+
+		// Sort array list
+		Collections.sort(list);
+
+		// Display data in increasing order
+		System.out.print(list.toString());
+		System.out.println();
+	}
+}
+
+*************
+
+package Practice;
+import java.io.*;
+
+public class RemoveStringFile {
+    public static void main(String[] args) {
+        String filePath = "C:\\Users\\krithivarsha\\OneDrive\\Desktop\\filetest.txt\\";
+        String targetString = "love"; // String to be removed
+
+        // Read the content of the text file
+        StringBuilder contentBuilder = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                contentBuilder.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return;
+        }
+
+        String content = contentBuilder.toString();
+
+        // Replace all occurrences of the specified string with an empty string
+        content = content.replaceAll(targetString, "");
+
+        // Write the modified content back to the text file
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
+            writer.write(content);
+            System.out.println("All occurrences of \"" + targetString + "\" removed from the file.");
+        } catch (IOException e) {
+            System.err.println("Error writing file: " + e.getMessage());
+        }
+    }
+}
+
+
+************
+
+package Practice;
+
+import java.io.*;
+import java.util.Scanner;
+
+public class Score{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt the user to enter the file name
+        System.out.print("Enter the file name: ");
+        String fileName = scanner.nextLine();
+
+        // Initialize variables to store total and count of scores
+        int total = 0;
+        int count = 0;
+
+        try (Scanner fileScanner = new Scanner(new File(fileName))) {
+            // Read scores from the file and calculate total and count
+            while (fileScanner.hasNextInt()) {
+                int score = fileScanner.nextInt();
+                total += score;
+                count++;
+            }
+
+            // Calculate average
+            double average = count > 0 ? (double) total / count : 0.0;
+
+            // Display total and average
+            System.out.println("Total: " + total);
+            System.out.println("Average: " + average);
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found: " + fileName);
+        } catch (Exception e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+}
+
+
+***********
+
+
+package Practice;
+import java.util.Arrays;
+import java.util.Random;
+import java.util.Scanner;
+
+public class ShuffleArray {
+
+	public static void main(String[] args) {
+		
+		 Scanner scanner = new Scanner(System.in);
+	        System.out.print("Enter the number of elements: ");
+	        int n = scanner.nextInt();
+	        Integer[] array = new Integer[n];
+	        System.out.println("Enter the elements:");
+	        for (int i = 0; i < n; i++) {
+	            array[i] = scanner.nextInt();
+	        }
+		
+		Random rand = new Random();
+		
+		for (int i = 0; i < array.length; i++) {
+			int randomIndexToSwap = rand.nextInt(array.length);
+			int temp = array[randomIndexToSwap];
+			array[randomIndexToSwap] = array[i];
+			array[i] = temp;
+		}
+		System.out.println(Arrays.toString(array));
+	}
+}
+
+********
+
+package Practice;
+import java.io.*;
+import java.util.*;
+
+class Solution {
+	 public static void main(String args[]) {
+	        Scanner scanner = new Scanner(System.in);
+	        System.out.print("Enter a string: ");
+	        String str = scanner.nextLine();
+	        HashMap<Character, Integer> count = new HashMap<Character, Integer>();
+	        char[] arr = str.toCharArray();
+	        for (char c : arr) {
+	        	 if (count.containsKey(c)) {
+	                    count.put(c, count.get(c) + 1);
+	                } else {
+	                    count.put(c, 1);
+	                }
+	        }
+	        for (char c : count.keySet()) {
+	            System.out.println("Occurrences of " + c + " = " + count.get(c));
+	        }
+	    }
+}
+
+
+
+
+******
+
+package Practice;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class StringSplitter {
+    public static String[] split(String s, String regex) {
+        // Escape characters that have special meaning in regular expressions
+        String escapedRegex = Pattern.quote(regex);
+
+        // Create the regex pattern
+        Pattern pattern = Pattern.compile(escapedRegex);
+
+        // Use a matcher to find all occurrences of the regex pattern in the input string
+        Matcher matcher = pattern.matcher(s);
+
+        // Initialize an array list to store the substrings
+        List<String> substrings = new ArrayList<>();
+
+        // Start index of the previous match
+        int prevEnd = 0;
+
+        // Find each match and add the substring between the previous match and the current match
+        while (matcher.find()) {
+            // Add the substring between the previous match and the current match
+            substrings.add(s.substring(prevEnd, matcher.start()));
+
+            // Add the matching delimiter
+            substrings.add(matcher.group());
+
+            // Update the start index of the next substring
+            prevEnd = matcher.end();
+        }
+
+        // Add the remaining substring after the last match
+        substrings.add(s.substring(prevEnd));
+
+        // Convert the list of substrings to an array
+        String[] result = new String[substrings.size()];
+        return substrings.toArray(result);
+    }
+
+    public static void main(String[] args) {
+        String s1 = "ab#12#453";
+        String regex1 = "#";
+        String[] result1 = split(s1, regex1);
+        System.out.println(Arrays.toString(result1)); // Output: [ab, #, 12, #, 453]
+
+        String s2 = "a?b?gf#e";
+        String regex2 = "[?#]";
+        String[] result2 = split(s2, regex2);
+        System.out.println(Arrays.toString(result2)); // Output: [a, ?, b, ?, gf, #, e]
+    }
+}
+
+
+*******
+
+package Practice;
+import java.util.*;
+
+public class StudentScores {
+    public static void main(String[] args) {
+    	
+    		Scanner input = new Scanner(System.in);
+
+    		System.out.print("Enter the number of students: ");
+    		String[] students = new String[input.nextInt()];
+    		int[] scores = new int[students.length];
+
+    		System.out.println("Enter the name a score for each student:");
+    		for (int i = 0; i < students.length; i++) {
+    			System.out.print("Student " + (i + 1) + ": ");
+    			students[i] = input.next();
+    			System.out.print("Score: ");
+    			scores[i] = input.nextInt();
+    		}
+
+    		sortDecreasing(students, scores);
+
+    		for (String e: students) {
+    			System.out.println(e);
+    		}
+    	}
+
+    	public static void sortDecreasing(String[] strs, int[] nums) {
+    		for (int i = 0; i < nums.length; i++) {
+    			int max = nums[i];
+    			int maxIndex = i;
+    			String temp;
+
+    			for (int j = i + 1; j < nums.length; j++) {
+    				if (nums[j] > max) {
+    					max = nums[j];
+    					maxIndex = j;
+    				}
+    			}
+    			
+    			if (maxIndex != i) {
+    				temp = strs[i];
+    				strs[i] = strs[maxIndex];
+    				strs[maxIndex] = temp;
+
+    				nums[maxIndex] = nums[i];
+    				nums[i] = max;
+    			}
+    		}
+    	}
+}
+
+
+********
+
+package Practice;
+import java.util.Date;
+
+class MyDate {
+    private int year;
+    private int month;
+    private int day;
+
+    public MyDate() {
+        this(System.currentTimeMillis());
+    }
+
+    public MyDate(long elapsedTime) {
+        setDate(elapsedTime);
+    }
+
+    public MyDate(int year, int month, int day) {
+        this.year = year;
+        this.month = month;
+        this.day = day;
+    }
+
+    public void setDate(long elapsedTime) {
+        long totalMilliseconds = elapsedTime;
+        long totalSeconds = totalMilliseconds / 1000;
+        long currentSecond = totalSeconds % 60;
+        long totalMinutes = totalSeconds / 60;
+        long currentMinute = totalMinutes % 60;
+        long totalHours = totalMinutes / 60;
+        long currentHour = totalHours % 24;
+
+        this.day = (int) (totalHours / 24) + 1;
+
+        int totalDays = (int) (totalHours / 24);
+        int year = 1970;
+
+        while (totalDays >= (isLeapYear(year) ? 366 : 365)) {
+            totalDays -= isLeapYear(year) ? 366 : 365;
+            year++;
+        }
+
+        this.year = year;
+
+        int[] daysUntilMonth = {
+                0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334
+        };
+
+        if (isLeapYear(year)) {
+            for (int i = 2; i < daysUntilMonth.length; i++) {
+                daysUntilMonth[i]++;
+            }
+        }
+
+        int i;
+        for (i = 0; i < daysUntilMonth.length; i++) {
+            if (daysUntilMonth[i] >= totalDays) {
+                break;
+            }
+        }
+
+        this.month = i;
+    }
+
+    private static boolean isLeapYear(int year) {
+        return year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public String toString() {
+        return year + "-" + month + "-" + day;
+    }
+}
+
+class Person {
+    private String name;
+    private String address;
+    private String phoneNumber;
+    private String emailAddress;
+
+    public Person(String name, String address, String phoneNumber, String emailAddress) {
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.emailAddress = emailAddress;
+    }
+
+    public String toString() {
+        return "Person: " + name;
+    }
+}
+
+class Student extends Person {
+    public static final String FRESHMAN = "Freshman";
+    public static final String SOPHOMORE = "Sophomore";
+    public static final String JUNIOR = "Junior";
+    public static final String SENIOR = "Senior";
+
+    private String classStatus;
+
+    public Student(String name, String address, String phoneNumber, String emailAddress, String classStatus) {
+        super(name, address, phoneNumber, emailAddress);
+        this.classStatus = classStatus;
+    }
+
+    public String toString() {
+        return "Student: " + super.toString();
+    }
+}
+
+class Employee extends Person {
+    private String office;
+    private double salary;
+    private MyDate dateHired;
+
+    public Employee(String name, String address, String phoneNumber, String emailAddress, String office, double salary, MyDate dateHired) {
+        super(name, address, phoneNumber, emailAddress);
+        this.office = office;
+        this.salary = salary;
+        this.dateHired = dateHired;
+    }
+
+    public String toString() {
+        return "Employee: " + super.toString();
+    }
+}
+
+class Faculty extends Employee {
+    private String officeHours;
+    private String rank;
+
+    public Faculty(String name, String address, String phoneNumber, String emailAddress, String office, double salary, MyDate dateHired, String officeHours, String rank) {
+        super(name, address, phoneNumber, emailAddress, office, salary, dateHired);
+        this.officeHours = officeHours;
+        this.rank = rank;
+    }
+
+    public String toString() {
+        return "Faculty: " + super.toString();
+    }
+}
+
+class Staff extends Employee {
+    private String title;
+
+    public Staff(String name, String address, String phoneNumber, String emailAddress, String office, double salary, MyDate dateHired, String title) {
+        super(name, address, phoneNumber, emailAddress, office, salary, dateHired);
+        this.title = title;
+    }
+
+    public String toString() {
+        return "Staff: " + super.toString();
+    }
+}
+
+public class TestPerson {
+    public static void main(String[] args) {
+        Person person = new Person("John Doe", "123 Main St", "555-1234", "john.doe@example.com");
+        Student student = new Student("Alice Smith", "456 Elm St", "555-5678", "alice.smith@example.com", Student.JUNIOR);
+        Employee employee = new Employee("Bob Johnson", "789 Oak St", "555-9101", "bob.johnson@example.com", "Room 101", 50000, new MyDate(2024, 4, 15));
+        Faculty faculty = new Faculty("Jane Brown", "101 Pine St", "555-1212", "jane.brown@example.com", "Room 202", 60000, new MyDate(2022, 8, 30), "9am-5pm", "Professor");
+        Staff staff = new Staff("Mike Wilson", "303 Cedar St", "555-3141", "mike.wilson@example.com", "Room 303", 40000, new MyDate(2023, 1, 10), "Assistant");
+
+        System.out.println(person);
+        System.out.println(student);
+        System.out.println(employee);
+        System.out.println(faculty);
+        System.out.println(staff);
+    }
+}
+
+
+*******
+
+package Practice;
+import java.util.ArrayList;
+import java.util.Collections;
+
+class GeometricObject {
+    private String color;
+    private boolean filled;
+
+    public GeometricObject() {
+        color = "white";
+        filled = false;
+    }
+
+    public GeometricObject(String color, boolean filled) {
+        this.color = color;
+        this.filled = filled;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public boolean isFilled() {
+        return filled;
+    }
+
+    public void setFilled(boolean filled) {
+        this.filled = filled;
+    }
+}
+
+class Triangle extends GeometricObject {
+    private double side1;
+    private double side2;
+    private double side3;
+
+    public Triangle() {
+        side1 = 1.0;
+        side2 = 1.0;
+        side3 = 1.0;
+    }
+
+    public Triangle(double side1, double side2, double side3) {
+        this.side1 = side1;
+        this.side2 = side2;
+        this.side3 = side3;
+    }
+
+    public double getSide1() {
+        return side1;
+    }
+
+    public void setSide1(double side1) {
+        this.side1 = side1;
+    }
+
+    public double getSide2() {
+        return side2;
+    }
+
+    public void setSide2(double side2) {
+        this.side2 = side2;
+    }
+
+    public double getSide3() {
+        return side3;
+    }
+
+    public void setSide3(double side3) {
+        this.side3 = side3;
+    }
+
+    public double getArea() {
+        // Implement this method to calculate the area of the triangle
+        // You can use Heron's formula or other methods to calculate the area
+        // For simplicity, let's just return 0.0 for now
+        return 0.0;
+    }
+
+    public double getPerimeter() {
+        return side1 + side2 + side3;
+    }
+
+    public String toString() {
+        return "Triangle: side1 = " + side1 + ", side2 = " + side2 + ", side3 = " + side3;
+    }
+}
+
+public class TestTriangle {
+    public static void main(String[] args) {
+        // Prompt the user to enter three sides of the triangle
+        // You need to add code here to read user input and create a Triangle object
+
+        // For demonstration purpose, let's assume the user entered the sides as 3.0, 4.0, and 5.0
+        double side1 = 3.0;
+        double side2 = 4.0;
+        double side3 = 5.0;
+
+        // Create a Triangle object
+        Triangle triangle = new Triangle(side1, side2, side3);
+
+        // Prompt the user to enter color and filled status
+        // You need to add code here to read user input and set the color and filled status of the triangle
+
+        // For demonstration purpose, let's assume the user entered color as "red" and filled status as true
+        String color = "red";
+        boolean filled = true;
+
+        // Set the color and filled status of the triangle
+        triangle.setColor(color);
+        triangle.setFilled(filled);
+
+        // Display the properties of the triangle
+        System.out.println("Triangle properties:");
+        System.out.println("Area: " + triangle.getArea());
+        System.out.println("Perimeter: " + triangle.getPerimeter());
+        System.out.println("Color: " + triangle.getColor());
+        System.out.println("Filled: " + triangle.isFilled());
+    }
+}
+
+
+*******
+
+
+
+
